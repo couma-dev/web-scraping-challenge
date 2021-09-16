@@ -8,26 +8,22 @@ import scrape_mars
 app = Flask(__name__)
 
 mongo = pymongo(app, url="mongodb://localhost:27017/mars_app")
-mars_data = mongo.db.mars_data
 #################################################
 # Flask Routes
 #################################################
 
-@app.route("/")
+@app.route("/scrape")
 
 def home():
     """List all available api routes."""
-    return render_template ('index.html')
+    hemisphere_image_urls= mongo.db.hemisphere_image_urls.find_one()
+    return render_template ('index.html', mars = hemisphere_image_urls)
       
 @app.route("/scrape")
 def scrape():
-     
-     scraped_data = scrape_mars.scrape()
-     mars_data.update({}, scraped_data, upsert=True)
-     return redirect("/data")
-@app.route("/data")
-def data():
-    mars_info = mongo.db.mars_data.find_one()
-    return render_template("index.html", info=mars_info)
+     hemisphere_image_urls = mongo.db.hemisphere_image_urls
+     mars_data = scrape_mars.scrape()
+     hemisphere_image_urls.update({}, mars_data, upsert=True)
+    return redirect("/")
 if __name__ == '__main__':
     app.run(debug=True)

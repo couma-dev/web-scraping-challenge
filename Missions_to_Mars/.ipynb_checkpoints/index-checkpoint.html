@@ -31,23 +31,28 @@
   </br>
     <div class="row">
       <div class="col-md-12">
-        <h4>{{info.news_title}}</h4>
-        <p>{{info.news_paragraph}}</p>
+        <h4>{{mars.title}}</h4>
+        <p>{{mars.paragraph}}</p>
       </div>
+    </div>
+    <div class="border">
+        </br>
+        <h5>Current Weather on Mars</h5>
+        {{mars.mars_weather}}
     </div>
   <hr>
     <div class="row">
       <div class="col-md-8 border">
         <h2 class=""><u>Featured Mars Image</u></h2> 
         </br>
-        <img class="col-md-12 border" src="{{info.featured_Image}}" alt="Features Mars Image">
+        <img class="col-md-12 border" src="{{mars.featured_url}}" alt="Features Mars Image">
       </div>
       <div class="col-md-4">
         
         </br>
         <div class="card">
           <h3>Mars Facts</h3>
-            {{html_table}}
+            {{Mars Fact Table | safe}}
         </div>
       </div>
     </div>
@@ -59,15 +64,15 @@
     </div>
     </br>
     <div class="row">       
-            {% for i in info.Mars_Hemisphere_Images %} 
+            {% for hem in mars.hemisphere_image_urls %} 
               <div class="col-6 border">
               </br>
                     <div>
-                      <img width="512 px" height="512 px" src="{{i.image_url}}">
+                      <img width="512 px" height="512 px" src="{{hem.image_url}}">
                     </div>
 
                     <div>
-                      <h4> {{i.title}} </h4>  
+                      <h4> {{hem.title}} </h4>  
                     </div>
             
               </div>
@@ -77,7 +82,9 @@
   <hr>
   <footer class="footer">
     <span class="bottom">Mars Explore</span>
-
+    <div class="footer">&copy; Copyright Xinliang Huang 2020
+  
+    </div>
   </footer>
 </body>
 
